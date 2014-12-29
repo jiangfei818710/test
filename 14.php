@@ -1,0 +1,10 @@
+<?
+$fields = "bD324";
+var_dump(preg_match("/^D[\s\S]+/" ,$fields));
+?>
+
+
+<script>$(".clock ").click(function(){var i=parseInt($(this).attr("pos"));change_time(i)});</script>
+
+
+<script>var time=0;var client_s_time=0;var a;var id=0;$(function(){daojishi()});function daojishi(){$.get("index.php?app=specact&act=get_time",function(msg){var date=new Date(msg.time*1000);var y=date.getFullYear();var m=date.getMonth()+1;m=m>9?(m+""):("0"+m);var d=date.getDate();d=d>9?(d+""):("0"+d);var e_time_1=parseInt(Date.parse(y+"/"+m+"/"+d+" 10:00:00"))/1000;var e_time_2=parseInt(Date.parse(y+"/"+m+"/"+d+" 16:00:00"))/1000;var e_time;if(msg.time<e_time_1){change_time(0);change_btn(0,0);e_time=e_time_1}else if(msg.time<e_time_2){change_time(0);change_btn(1,0);e_time=e_time_2}else{change_time(1);change_btn(2,1);return}time=e_time-msg.time;client_s_time=Math.round(new Date().getTime()/1000);a=setInterval("djs()",500)},"json")}function djs(){var client_n_time=Math.round(new Date().getTime()/1000);var t=time-(client_n_time-client_s_time);if(t<0){clearInterval(a);daojishi();return}}function change_time(i){$(".clock").removeClass("active");$(".clock").eq(i).addClass("active");var n=i+3;$(".specact_ul_3").hide();$(".specact_ul_4").hide();$(".specact_ul_"+n).show()}function change_btn(i1,i2){$(".specact_ul_3").find("li").each(function(index,dom){if(i1==1){if(data3[index].stock_promotion<1){$(dom).find(".tobuy").find("img").attr("src",img5[2])}else{$(dom).find(".tobuy").find("img").attr("src",img5[1])}}else{$(dom).find(".tobuy").find("img").attr("src",img5[i1])}});$(".specact_ul_4").find("li").each(function(index,dom){if(i2==1){if(data4[index].stock_promotion<1){$(dom).find(".tobuy").find("img").attr("src",img5[2])}else{$(dom).find(".tobuy").find("img").attr("src",img5[1])}}else{$(dom).find(".tobuy").find("img").attr("src",img5[i2])}})}</script>
